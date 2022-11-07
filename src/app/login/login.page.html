@@ -11,17 +11,31 @@
     <img alt="Welcome" src="https://static.vecteezy.com/ti/vetor-gratis/t2/7229427-welcome-calligraphic-inscription-with-smooth-lines-vetor.jpg" />
   </ion-item>
 
-    <ion-item>
+  
+  <form [formGroup]="loginForm" >
+
+    <ion-item style="flex-direction: column">
       <ion-label position="floating">E-mail</ion-label>
-      <ion-input type="email" placeholder="Digite seu e-mail"></ion-input>
-      
-    
+      <ion-input type="email" formControlName="email" placeholder="Digite seu e-mail"></ion-input>
     </ion-item>
+    <ng-container *ngFor="let erro of errorMessage.email">
+      <span class="msg-erro" *ngIf="email.errors?.[erro.tipo] && (email.dirty || email.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+    
     <ion-item>
       <ion-label position="floating">Senha</ion-label>
-      <ion-input type="password"  placeholder="Digite sua senha"></ion-input>
+      <ion-input type="password" formControlName="senha"  placeholder="Digite sua senha"></ion-input>
     </ion-item>
-    
+    <ng-container *ngFor="let erro of errorMessage.senha">
+      <span class="msg-erro" *ngIf="senha.errors?.[erro.tipo] && (senha.dirty || senha.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+
+  </form>
+  
     <ion-button color="tertiary" expand="block">Entrar</ion-button>
     <ion-button color="tertiary" expand="block">Registrar</ion-button>
 

@@ -16,10 +16,17 @@ export class LoginPage implements OnInit {
   errorMessage =
   {
     email : [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'email', aviso: 'Email inválido'}],
-    senha: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minLength', aviso: 'É necessário ter  no mínimo 6 caracteres'}],
+    senha: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minlength', aviso: 'É necessário ter  no mínimo 6 caracteres'}],
   };
   constructor(private formBuilder: FormBuilder ) { }
 
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get senha() {
+    return this.loginForm.get('senha');
+  }
 
   ngOnInit() {
   }

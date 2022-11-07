@@ -11,30 +11,60 @@
     <img alt="Welcome" src="https://static.vecteezy.com/ti/vetor-gratis/t2/7229427-welcome-calligraphic-inscription-with-smooth-lines-vetor.jpg" />
   </ion-item>
   
+  <form [formGroup]="registroForm" >
+
+
   <ion-item>
     <ion-label position="floating">Nome</ion-label>
-    <ion-input placeholder="Digite seu nome"></ion-input>
+    <ion-input id="nome" formControlName="nome" placeholder="Digite seu nome"></ion-input>
   </ion-item>
+  <ng-container *ngFor="let erro of errorMessage.nome">
+    <span class="msg-erro" *ngIf="nome.errors?.[erro.tipo] && (nome.dirty || nome.touched)">
+      {{erro.aviso}}
+    </span>
+  </ng-container>
 
   <ion-item>
     <ion-label position="floating">E-mail</ion-label>
-    <ion-input type="email" placeholder="Digite seu e-mail"></ion-input>
+    <ion-input type="email" formControlName="email" placeholder="Digite seu e-mail"></ion-input>
   </ion-item>
+  <ng-container *ngFor="let erro of errorMessage.email">
+    <span class="msg-erro" *ngIf="email.errors?.[erro.tipo] && (email.dirty || email.touched)">
+      {{erro.aviso}}
+    </span>
+  </ng-container>
 
     <ion-item>
       <ion-label position="floating">CPF</ion-label>
-      <ion-input placeholder="Digite seu CPF"></ion-input>
+      <ion-input type="tel" formControlName="cpf" placeholder="Digite seu CPF"></ion-input>
     </ion-item>
+    <ng-container *ngFor="let erro of errorMessage.cpf">
+      <span class="msg-erro" *ngIf="cpf.errors?.[erro.tipo] && (cpf.dirty || cpf.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
 
     <ion-item>
       <ion-label position="floating">Senha</ion-label>
-      <ion-input type="password" placeholder="Digite sua senha"></ion-input>
+      <ion-input type="password" formControlName="senha" placeholder="Digite sua senha"></ion-input>
     </ion-item>
+    <ng-container *ngFor="let erro of errorMessage.senha">
+      <span class="msg-erro" *ngIf="senha.errors?.[erro.tipo] && (senha.dirty || senha.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
 
     <ion-item>
       <ion-label position="floating">Confirmar Senha</ion-label>
-      <ion-input placeholder="Confirme sua senha"></ion-input>
+      <ion-input type="password" formControlName="confirmaSenha" placeholder="Confirme sua senha"></ion-input>
     </ion-item>
+    <ng-container *ngFor="let erro of errorMessage.confirmaSenha">
+      <span class="msg-erro" *ngIf="confirmaSenha.errors?.[erro.tipo] && (confirmaSenha.dirty || confirmaSenha.touched)">
+        {{erro.aviso}}
+      </span>
+    </ng-container>
+
+    </form>
     
     <ion-button color="tertiary" expand="block">Registrar</ion-button>
     <ion-button color="tertiary" fill="clear" expand="block">Voltar</ion-button>
