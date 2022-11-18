@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { ServerStreamFileResponseOptionsWithError } from 'http2';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
-  // _storage é responsável por armazenar os dados no banco
+  // _storage é responsável por armazenar os dados no banco do navegador
   private _storage: Storage | null = null;
 
   constructor(private storage: Storage) {
