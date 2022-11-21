@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators} from '@angular/forms'
+import { Router } from '@angular/router';
+import { Usuario } from '../models/Usuario.model';
 import { StorageService } from '../services/storage.service';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -12,8 +15,8 @@ export class RegistroPage implements OnInit {
     nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
     email: ['', Validators.compose([Validators.required, Validators.email])],
     cpf: ['', Validators.compose([Validators.required, Validators.minLength(11), Validators.maxLength(11)])],
-    senha: ['',Validators.compose([Validators.required, Validators.minLength(8)])],
-    confirmaSenha: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+    senha: ['',Validators.compose([Validators.required, Validators.minLength(6)])],
+    confirmaSenha: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
   })
 
   errorMessage =
@@ -33,8 +36,14 @@ export class RegistroPage implements OnInit {
   })
 
   pessoa = {};
+  usuario: Usuario = new Usuario();
 
-  constructor( private bd: StorageService, private formBuilder: FormBuilder ) { }
+  constructor(
+    private bd: StorageService,
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService,
+    private route: Router
+    ) { }
 
   get nome() {
     return this.registroForm.get('nome');
@@ -60,6 +69,24 @@ export class RegistroPage implements OnInit {
   }
 
   async salvar(){
-    this.bd.set('email', this.pessoa)
+    if(this.registroForm.valid){
+    this.usuario.nome = this.registroForm.get('nome').value;
+    this.usuario.email = this.registroForm.get('email').value;
+    this.usuario.cpf = this.registroForm.get('cpf').value;
+    this.usuario.senha = this.registroForm.get('senha').value;
+
+    const id = await this.usuarioService.buscarId() as number;
+
+    this.usuario.id = id;
+
+    this.usuarioService.salvar(this.usuario);
+   
+    this.usuarioService.salvarId(id+1);
+    alert('Sucesso!!')
+    this.route.navigateByUrl('/login')
+
+    }else {
+      alert('Formulário Inválido!')
+    }
   }
 }
