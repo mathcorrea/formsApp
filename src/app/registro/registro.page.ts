@@ -68,6 +68,10 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
 
+  async voltar(){
+    this.route.navigateByUrl('/login')
+  }
+  
   async salvar(){
     if(this.registroForm.valid){
     this.usuario.nome = this.registroForm.get('nome').value;

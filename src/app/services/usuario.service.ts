@@ -15,7 +15,7 @@ export class UsuarioService {
   constructor(private storageService: StorageService) { }
 
   async login (email: string, senha: string){
-    this.buscarTodos();
+    await this.buscarTodos();
     let usuario: Usuario;
     this.listaUsuarios.filter(item => {
       if(item.email.toLocaleLowerCase() == email.toLocaleLowerCase()){
@@ -29,12 +29,13 @@ export class UsuarioService {
   }
 
   async salvar(usuario: Usuario) {
+    await this.buscarTodos();
     this.listaUsuarios[usuario.id] = usuario;
     await this.storageService.set('usuarios', this.listaUsuarios)
   }
 
   async buscarUm(id: number)  {
-    this.buscarTodos();
+    await this.buscarTodos();
     return this.listaUsuarios[id];
   }
 
@@ -47,7 +48,7 @@ export class UsuarioService {
   }
 
   async deletar(id: number) {
-    this.buscarTodos(); // atualiza a lista de usuarios
+    await this.buscarTodos(); // atualiza a lista de usuarios
     this.listaUsuarios.slice(id,1); // remove o usuario do array
     await this.storageService.set('usuarios', this.listaUsuarios); // salva o array
   }

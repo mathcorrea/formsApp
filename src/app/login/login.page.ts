@@ -38,12 +38,17 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  async registro(){
+    this.route.navigateByUrl('/registro')
+  }
+
   async login(){
     if(this.loginForm.valid){
       const email = this.loginForm.get('email').value;
       const senha = this.loginForm.get('senha').value;
       const usuario: Usuario = (await this.usuarioService.login(email, senha)) as null as Usuario;
 
+      
       if(usuario){
         this.route.navigateByUrl('/tabs/tab1');
       } else {
@@ -53,5 +58,6 @@ export class LoginPage implements OnInit {
     }else{
       alert('Formulário Inválido!')
     }
+    
   }
 }
