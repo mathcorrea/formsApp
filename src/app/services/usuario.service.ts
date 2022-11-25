@@ -40,11 +40,12 @@ export class UsuarioService {
   }
 
   async buscarTodos() {
-    this.listaUsuarios = await this.storageService.get('usuarios') as unknown as Usuario[];
+    this.listaUsuarios = (await this.storageService.get('usuarios')) as null as Usuario[];
+
     if (!this.listaUsuarios){
-      return [];
-    } 
-    return this.listaUsuarios;
+      this.listaUsuarios = [];
+    }
+      return this.listaUsuarios; 
   }
 
   async deletar(id: number) {
