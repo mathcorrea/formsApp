@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>produtos</ion-title>
+    <ion-title>Cadastro de Produtos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,10 +15,10 @@
     
     <ion-item style="flex-direction: column">
         <ion-label position="floating">Nome</ion-label>
-        <ion-input formControlName="produto" placeholder="Digite o produto"></ion-input>
+        <ion-input formControlName="nome" placeholder="Digite o nome do produto"></ion-input>
       </ion-item>
-      <ng-container *ngFor="let erro of errorMessage.produto">
-        <span class="msg-erro" *ngIf="produto.errors?.[erro.tipo] && (produto.dirty || produto.touched)">
+      <ng-container *ngFor="let erro of errorMessage.nome">
+        <span class="msg-erro" *ngIf="nome.errors?.[erro.tipo] && (nome.dirty || nome.touched)">
           {{erro.aviso}}
         </span>
       </ng-container>

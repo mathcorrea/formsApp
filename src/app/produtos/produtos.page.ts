@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Produto } from '../models/Produto.model';
+import { Usuario } from '../models/Usuario.model';
+import { ProdutosService } from '../services/produtos.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({
@@ -10,9 +13,8 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class ProdutosPage implements OnInit {
 
-  loginForm = this.formBuilder.group({
+  produtosForm = this.formBuilder.group({
     nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-    produto: ['',Validators.compose([Validators.required, Validators.minLength(5)])],
     descricao: ['',Validators.compose([Validators.required, Validators.minLength(10)])],
     data: ['',Validators.compose([Validators.required, Validators.minLength(6)])],
     preco: ['',Validators.compose([Validators.required, Validators.minLength(1)])]
@@ -21,49 +23,48 @@ export class ProdutosPage implements OnInit {
   errorMessage =
   {
     nome : [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minLenght', aviso: 'É necessário ter  no mínimo 3 caracteres'}],
-    produto: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minlength', aviso: 'É necessário ter  no mínimo 5 caracteres'}],
     descricao: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minlength', aviso: 'É necessário ter  no mínimo 10 caracteres'}],
-    data: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minlength', aviso: 'É necessário ter  no mínimo 6 caracteres'}],
+    data: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minlength', aviso: 'É necessário ter no mínimo 6 caracteres'}],
     preco: [{tipo: 'required' , aviso: 'O campo não pode estar vazio'},{ tipo: 'minlength', aviso: 'É necessário ter  no mínimo 1 caracter'}]
   };
 
   //continuar aqui
   constructor(
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService,
+    private produtosService: ProdutosService,
     private route: Router
     ) { }
 
   get nome() {
-    return this.loginForm.get('email');
+    return this.produtosForm.get('nome');
   }
 
-  get peoduto() {
-    return this.loginForm.get('senha');
+  get descricao() {
+    return this.produtosForm.get('descricao');
   }
+
+  get data() {
+    return this.produtosForm.get('data');
+  }
+
+  get preco() {
+    return this.produtosForm.get('preco');
+  }
+
+  produtos: Produto = new Produto();
 
   ngOnInit() {
   }
 
-  async registro(){
-    this.route.navigateByUrl('/registro')
-  }
+  async cadastrar(){
+    if(this.produtosForm.valid){
+    this.produtos.nome = this.produtosForm.get('nome').value;
+    this.produtos.descricao = this.produtosForm.get('descricao').value;
+    this.produtos.data = this.produtosForm.get('data').value;
+    this.produtos.preco = this.produtosForm.get('preco').value;
 
-  async login(){
-    if(this.loginForm.valid){
-      const email = this.loginForm.get('email').value;
-      const senha = this.loginForm.get('senha').value;
-      const usuario: Usuario = (await this.usuarioService.login(email, senha)) as null as Usuario;
 
-      
-      if(usuario){
-        this.route.navigateByUrl('/tabs/tab1');
-      } else {
-        alert('E-mail ou senha inválidos!')
-      }
-
-    }else{
-      alert('Formulário Inválido!')
+    
     }
     
   }
