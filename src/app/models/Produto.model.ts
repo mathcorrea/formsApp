@@ -1,7 +1,7 @@
 export class Produto{
+    id: number;
     nome: string;
     descricao: string;
-    data: number;
-    preco: number;
-}
-
+    dataValidade: Date;
+    preco : number;
+} 

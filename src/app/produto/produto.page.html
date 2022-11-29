@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Cadastro de Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-card>
+    <form [formGroup]="produtoForm">
+
+      <ion-item>
+        <ion-input placeholder="Nome" formControlName="nome"></ion-input>
+      </ion-item>
+      <ng-container *ngFor="let erro of mensagensErro.nome">
+        <span class="msg-erro" *ngIf="nome.errors?.[erro.tipo] && (nome.dirty || nome.touched)">
+          {{erro.aviso}}
+        </span>
+      </ng-container>
+
+      <ion-item>
+        <ion-input placeholder="Descrição" formControlName="descricao"></ion-input>
+      </ion-item>
+      <ng-container *ngFor="let erro of mensagensErro.descricao">
+        <span class="msg-erro" *ngIf="descricao.errors?.[erro.tipo] && (descricao.dirty || descricao.touched)">
+          {{erro.aviso}}
+        </span>
+      </ng-container>
+
+      <ion-item>
+        <ion-datetime color="dark" presentation="date" formControlName="dataValidade"><span slot="title">Data de Validade</span> </ion-datetime>
+      </ion-item>
+      <ng-container *ngFor="let erro of mensagensErro.datavalidade">
+        <span class="msg-erro" *ngIf="dataValidade.errors?.[erro.tipo] && (dataValidade.dirty || dataValidade.touched)">
+          {{erro.aviso}}
+        </span>
+      </ng-container>
+
+      <ion-item>
+        <ion-input type="number" placeholder="Preço" formControlName="preco">{{currency}}</ion-input>
+      </ion-item>
+      <ng-container *ngFor="let erro of mensagensErro.preco">
+        <span class="msg-erro" *ngIf="preco.errors?.[erro.tipo] && (preco.dirty || preco.touched)">
+          {{erro.aviso}}
+        </span>
+      </ng-container>
+
+    </form>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button color="dark" expand="block" (click)="cadastrar()">
+          <ion-icon name="checkbox-outline"></ion-icon>
+          Cadastrar Produto</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="6">
+        <ion-button color="dark" expand="block">
+          <ion-icon name="arrow-back-outline"></ion-icon>Voltar
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-button color="dark" expand="block">
+          <ion-icon name="trash-sharp"></ion-icon>Limpar
+        </ion-button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-card>
+</ion-content>
