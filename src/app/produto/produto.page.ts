@@ -16,15 +16,15 @@ export class ProdutoPage implements OnInit {
   produto: Produto = new Produto();
 
   produtoForm = this.formBuilder.group({
-    nome: ['', Validators.compose([Validators.required,Validators.maxLength(30)])],
-    descricao: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+    nome: ['', Validators.compose([Validators.required,Validators.minLength(3)])],
+    descricao: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
     dataValidade: ['',Validators.required],
     preco: ['',Validators.required],    
   });
 
   mensagensErro = {
-    nome: [{tipo: 'required', aviso: 'O campo não pode estar vazio'}, {tipo: 'maxlength', aviso: 'O campo deve conter no máximo 30 caracteres'}],
-    descricao: [{tipo: 'required', aviso: 'O campo não pode estar vazio'}, {tipo: 'maxlength', aviso: 'O campo deve conter no máximo 50 caracteres'}],
+    nome: [{tipo: 'required', aviso: 'O campo não pode estar vazio'}, {tipo: 'minlength', aviso: 'É necessário ter no mínimo 3 caracteres'}],
+    descricao: [{tipo: 'required', aviso: 'O campo não pode estar vazio'}, {tipo: 'minlength', aviso: 'É necessário ter no mínimo 10 caracteres'}],
     dataValidade: [{tipo: 'required', aviso: 'O campo não pode estar vazio'}],
     preco: [{tipo: 'required', aviso: 'O campo não pode estar vazio'}],    
   };
@@ -73,4 +73,5 @@ export class ProdutoPage implements OnInit {
     ngOnInit() {
   }
 
+  
 }
