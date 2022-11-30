@@ -45,24 +45,14 @@
       </ng-container>
 
     </form>
-    <ion-row>
-      <ion-col size="12">
-        <ion-button color="dark" expand="block" (click)="cadastrar()">
-          <ion-icon name="checkbox-outline"></ion-icon>
-          Cadastrar</ion-button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-
-
-      <ion-col>
-        <ion-button color="dark" expand="block">
-          <ion-icon name="trash-sharp"></ion-icon>Limpar
-        </ion-button>
-      </ion-col>
-
-    </ion-row>
-
   </ion-card>
+
+    <ion-button color="dark" expand="block" (click)="cadastrar()">
+      <ion-icon name="checkbox-outline"></ion-icon>
+    Cadastrar</ion-button>
+      
+    <ion-button color="dark" fill="clear" expand="block">
+      <ion-icon name="trash-sharp"></ion-icon>Limpar
+    </ion-button>
+
 </ion-content>
