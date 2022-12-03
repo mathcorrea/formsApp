@@ -73,5 +73,7 @@ export class ProdutoPage implements OnInit {
     ngOnInit() {
   }
 
-  
+  async logar(){
+    this.route.navigateByUrl('/login')
+  }
 }
